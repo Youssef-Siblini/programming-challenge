@@ -21,7 +21,7 @@ public class DetectionControllerTest extends TestCase {
         given()
                 .body(map)
                 .contentType("application/json")
-                .when().post("/event").then().body("status", equalTo(EventStatus.NO_MODEL));
+                .when().post("/api/event/").then().body("status", equalTo(EventStatus.NO_MODEL.toString()));
     }
 
     private Map generateMapWithValue(final String value, boolean isCUID, boolean isUUID) {

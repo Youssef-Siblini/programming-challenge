@@ -18,11 +18,13 @@ import java.util.Map;
 @RequestMapping("api/event")
 public class DetectionController {
 
+    @Autowired
+    private DetectionService detectionService;
+
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public EventResponse addEvent(@RequestBody Event event) {
-
-        return null;
-
+    public EventResponse addEvent(@RequestBody Event event)
+    {
+        return detectionService.addEvent(event);
     }
 
 }
