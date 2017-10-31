@@ -33,6 +33,14 @@ public class EventResponse {
     @NotNull(message="err.message.required")
     private String message;
 
+    public EventResponse(Event event) {
+
+        this.eventId = event.getEventId();
+        this.sensorId = event.getSensorId();
+        this.timestamp = event.getTimestamp();
+        this.value = event.getValue();
+    }
+
     public String getEventId() {
         return eventId;
     }

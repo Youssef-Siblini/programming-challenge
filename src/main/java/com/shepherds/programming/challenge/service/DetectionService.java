@@ -8,5 +8,5 @@ import com.shepherds.programming.challenge.EventResponse;
  */
 public interface DetectionService {
 
-    EventResponse addEvent(Event event);
+    EventResponse addEvent(Event event, boolean isAnomaly, boolean isEmpty);
 }

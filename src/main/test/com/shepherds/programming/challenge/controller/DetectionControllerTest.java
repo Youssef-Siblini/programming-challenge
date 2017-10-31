@@ -17,7 +17,7 @@ public class DetectionControllerTest extends TestCase {
     @Test
     public void testAddEventNoModelResponse()
     {
-        Map map = generateMapWithValue("19.0", false, true);
+        Map map = generateMapWithValue("19.0", false, false);
         given()
                 .body(map)
                 .contentType("application/json")

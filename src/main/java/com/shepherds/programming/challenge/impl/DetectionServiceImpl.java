@@ -17,17 +17,31 @@ public class DetectionServiceImpl implements DetectionService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public EventResponse addEvent(Event event)
+    public EventResponse addEvent(Event event, boolean isAnomaly, boolean isEmpty)
     {
-        logger.info("Logged event with id: {}", event.getEventId());
 
-        EventResponse eventResponse = new EventResponse();
+        EventResponse eventResponse = new EventResponse(event);
 
-        eventResponse.setValue(event.getValue());
-        eventResponse.setSensorId(event.getSensorId());
-        eventResponse.setTimestamp(event.getTimestamp());
-        eventResponse.setEventId(event.getEventId());
-        eventResponse.setStatus(EventResponse.Status.NO_MODEL);
+        if(isEmpty) {
+
+            logger.info("Logged event with id {} with NO_MODEL status", event.getEventId());
+            eventResponse.setStatus(EventResponse.Status.NO_MODEL);
+
+        } else {
+
+            if(isAnomaly) {
+
+                logger.info("Logged event with id {} as ANOMALY status", event.getEventId());
+                eventResponse.setStatus(EventResponse.Status.ANOMALY);
+
+            } else {
+
+                logger.info("Logged event with id {} as NO_ANOMALY status", event.getEventId());
+                eventResponse.setStatus(EventResponse.Status.NO_ANOMALY);
+
+            }
+
+        }
         eventResponse.setCause("");
         eventResponse.setMessage("");
 
