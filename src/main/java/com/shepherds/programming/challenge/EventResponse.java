@@ -39,6 +39,8 @@ public class EventResponse {
         this.sensorId = event.getSensorId();
         this.timestamp = event.getTimestamp();
         this.value = event.getValue();
+        this.message = "";
+        this.cause = "";
     }
 
     public String getEventId() {

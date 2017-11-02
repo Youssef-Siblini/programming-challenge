@@ -15,7 +15,7 @@ For NO_MODEL Response pass an event with sensorId that is not in the model confi
 		"value": "30.23"  
 	}  
   
-For ANOMALY Response pass an event with sensorId that is in the model config and the event value is above the threshold set for that event in the model config:  
+For ANOMALY Response pass an event with sensorId that is in the model config and the event value is above the threshold set for that event in the SensorConfig model OR events values average is greater than the THRESHHOLD in AverageQueueModel:
 	POST http://localhost:8080/api/event/  
 	{  
 		"eventId": "cj86g5ypk000004zvevipqxfn",  
@@ -24,7 +24,7 @@ For ANOMALY Response pass an event with sensorId that is in the model config and
 		"value": "30.23"  
 	}  
   
-For NO_ANOMALY Response pass an event with sensorId that is in the model config and the event value is below the threshold set for that event in the model config:    
+For NO_ANOMALY Response pass an event with sensorId that is in the model config and the event value is below the threshold set for that event in the SensorConfig model OR events values average is less than the THRESHHOLD in AverageQueueModel:
 	POST http://localhost:8080/api/event/  
 	{  
 		"eventId": "cj86g5ypk000004zvevipqxfn",  

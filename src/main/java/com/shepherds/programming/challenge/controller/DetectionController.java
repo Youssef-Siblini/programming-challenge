@@ -3,6 +3,7 @@ package com.shepherds.programming.challenge.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shepherds.programming.challenge.Event;
 import com.shepherds.programming.challenge.EventResponse;
+import com.shepherds.programming.challenge.config.models.AverageQueueModel;
 import com.shepherds.programming.challenge.config.models.SensorConfig;
 import com.shepherds.programming.challenge.config.models.SensorConfigModel;
 import com.shepherds.programming.challenge.service.DetectionService;
@@ -30,7 +31,7 @@ public class DetectionController {
     @Autowired
     private DetectionService detectionService;
 
-    Map<String, SensorConfigModel> mapSennsorIdToSensorConfigModel = new HashMap();
+    private Map<String, SensorConfigModel> mapSensorIdToSensorConfigModel = new HashMap();
 
     @PostConstruct
     public void init() throws Exception {
@@ -42,7 +43,7 @@ public class DetectionController {
 //        sensorConfig = mapper.readValue(new File("sensorconfig.json"), SensorConfig.class);
 
         for (SensorConfigModel sensorConfigModel : sensorConfig.getSensorconfigmodel())
-            mapSennsorIdToSensorConfigModel.put(sensorConfigModel.getSensorId(), sensorConfigModel);
+            mapSensorIdToSensorConfigModel.put(sensorConfigModel.getSensorId(), sensorConfigModel);
 
     }
 
@@ -50,11 +51,11 @@ public class DetectionController {
     public EventResponse addEvent(@RequestBody Event event)
     {
 
-        if(mapSennsorIdToSensorConfigModel.get(event.getSensorId()) == null) {
+        if(mapSensorIdToSensorConfigModel.get(event.getSensorId()) == null) {
             return detectionService.addEvent(event, true, true);
         } else {
 
-            double threshold = mapSennsorIdToSensorConfigModel.get(event.getSensorId()).getThreshold();
+            double threshold = mapSensorIdToSensorConfigModel.get(event.getSensorId()).getThreshold();
             boolean isAnomaly = event.getValue() < threshold ? false : true;
             return detectionService.addEvent(event, isAnomaly, false);
 
