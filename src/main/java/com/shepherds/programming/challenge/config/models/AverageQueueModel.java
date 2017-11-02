@@ -12,7 +12,7 @@ public class AverageQueueModel {
 
     private Queue<Event> window;
     private int WINDOW_MAX_SIZE = 3;  // should be configurable
-    public static final int THRESHHOLD = 10;
+    public static final int THRESHHOLD = 31;
 
     public AverageQueueModel () {
         window = new LinkedList();
@@ -20,11 +20,22 @@ public class AverageQueueModel {
 
     public void changeWindowMaxSize(int maxSize) {
 
+        if (maxSize < 0)
+            throw new IllegalArgumentException("Window max size must be positive");
+
+        this.WINDOW_MAX_SIZE = maxSize;
     }
 
     public boolean addEvent(Event event) {
 
-        return false;
+        if (event == null)
+            throw new IllegalArgumentException();
+
+        if (window.size() == WINDOW_MAX_SIZE)
+            window.remove();
+
+        window.add(event);
+        return true;
     }
 
     public Queue getWindow() {
@@ -32,7 +43,12 @@ public class AverageQueueModel {
     }
 
     public double getValuesAverage () {
-        return 0.0;
+
+        double valuesSum = 0;
+        for (Event event : window) {
+            valuesSum += event.getValue();
+        }
+        return valuesSum/window.size();
     }
 
 }
